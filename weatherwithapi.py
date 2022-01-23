@@ -1,5 +1,6 @@
 import requests
 import tkinter as tk
+import time
 def show():
     city=textBox.get()
     requesturl=f"{baseurl}?appid={API_KEY}&q={city}"
@@ -14,9 +15,10 @@ def show():
         temperature=data['main']["temp"]
         label1=tk.Label(root,text='Temperature : ' +str( temperature)+' kelvin')
         canvas1.create_window(100,100,window=label1)
+        canvas1.delete(label1)
     else:
-        label1=tk.Label(root,text='error')
-        canvas1.create_window(250,200,window=label1)
+        label1=tk.Label(root,text='Error Enter correct City')
+        canvas1.create_window(150,250,window=label1)
 root=tk.Tk()
 canvas1=tk.Canvas(root,width=300,height=300)
 canvas1.pack()
@@ -24,8 +26,6 @@ textBox = tk.Entry(root, width=10, font="Calibri 10")
 canvas1.create_window(150, 150, window=textBox)
 API_KEY='9e4cf60e5ba77d4d3bb154803e97a00f'
 baseurl="http://api.openweathermap.org/data/2.5/weather"
-
-button1 = tk.Button(text='Click Me',command=show, bg='brown',fg='white')
+button1 = tk.Button(text='Update',command=show, bg='blue',fg='white')
 canvas1.create_window(150, 200, window=button1)
-
 root.mainloop()    
