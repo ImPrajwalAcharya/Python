@@ -27,7 +27,6 @@ class stack:
             return self.number[self.top]
 width=700
 height=500
-k=0
 getx=[]
 pygame.init()
 color=['red','blue','white','green']
@@ -81,23 +80,35 @@ while 1:
         if event.type==pygame.MOUSEBUTTONDOWN:
             x,y=pygame.mouse.get_pos()
             getx.append(x)
+            k=getx.index(x)
             if k%2==1:
                 if x<200 and x>0:
                     if getx[k-1]>200 and getx[k-1]<400:
-                        d[0].push(d[1].pop())
+                        if d[0].seetop()>d[1].seetop():
+                            d[0].push(d[1].pop())
                     elif getx[k-1]>400 and getx[k-1]<600:
-                        d[0].push(d[2].pop())
+                        if d[0].seetop()>d[2].seetop():
+                            d[0].push(d[2].pop())
+                    else:
+                        getx.clear()
                 elif x>200 and x<400:
                     if getx[k-1]<200 and getx[k-1]>0:
-                        d[1].push(d[0].pop())
+                        if d[1].seetop()>d[0].seetop():
+                            d[1].push(d[0].pop())
                     elif getx[k-1]>400 and getx[k-1]<600:
-                        d[1].push(d[2].pop())
+                        if d[1].seetop()>d[2].seetop():
+                            d[1].push(d[2].pop())
+                    else:
+                        getx.clear()
                 elif x>400 and x<600:
                     if getx[k-1]>200 and getx[k-1]<400:
-                        d[2].push(d[1].pop())
+                        if d[2].seetop()>d[1].seetop():
+                            d[2].push(d[1].pop())
                     elif getx[k-1]>0 and getx[k-1]<200:
-                        d[2].push(d[0].pop())
-            k+=1
+                        if d[2].seetop()>d[0].seetop():
+                            d[2].push(d[0].pop())
+                    else:
+                        getx.clear()
     if d[1].see()==[1,2,3] or d[2].see()==[1,2,3]:
         text = font.render("Congo You completed the game", True,'green','blue')
         screen.blit(text, textRect)
